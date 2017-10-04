@@ -1,0 +1,31 @@
+This is a gentle introduction to SQL (Structured Query Language), a language used to query data stored in a relational database management system (RDBMS). Chances are, if you are programming using one of the popular frameworks, you will not be writing raw SQL, instead your framework will have an ORM (Object Relation Management) layer to manage data access for you (i.e Rails has ActiveRecord, Java has Hibernate etc). But I feel that knowing at least the basics of writing SQL is a useful life skill. This is part one of a multi part tutorial, and covers the basics of querying. This tutorial is aimed at people who have little to no knowledge/experience with SQL. For my example, I’m going to use MySQL, a popular free/open source (for the Community Edition) database, but it will mostly work for any popular database (Postgress, Microsoft SQL Server etc). In fact, I spent part of my misspent youth (well, 20s) working with Microsoft SQL Server, both as a developer and Administrator (I have Microsoft SQL 6.5 Developer and Administrator Certifications gathering dust somewhere in our house). So lets jump right in.
+
+Prerequisites.
+
+There are little to no prerequisites, though access to a server running MySQL would be helpful. The scripts I use to create the tables and insert the data we are going to use in the rest of the tutorial are in github here
+
+[insert GitHub link here]
+
+The use case behind the examples
+
+We are going to assume that we work for a small (very very small) College, and we are dealing with student records, classes and instructors. All the data we need is stored in the following tables
+
+courses - Stores a record of all the courses our college offers
+students - Stores a record of students currently enrolled in the College
+coursePricings - Stores the pricing for courses based on their type (regular course, lab, combined course and lab)
+Instructors - Stores information about the instructors who teach the courses
+courseInstructors - Instructors mapped to the courses they teach
+accounts - stores payment information related to students
+enrollments - stores what courses (taught by specific instructors) students are enrolled in.
+
+This is a small subset of what actual data would really look like. Before we continue, lets talk a bit about relationships. Often, when relational databases are used, we hear about one-to-one, one-to-many and many-to-many relationships. What this refers to is what relationship a row in one table has to another row in another table (you will also hear about primary and foreign keys and I will tackle that in a bit)
+
+Some definitions
+
+A one-to-one relationship means that a row in table A is related to a single Row in Table B. In the database schema above, there is a one to one relationship between a student and a row in the studentsAccounts table
+A one-to-many relationship means that a row in table A is related to multiple rows in Table B.  students have a one to many relationship to the enrollments table, since a single student can be enrolled in multiple courses
+A many to many relationship normally involves an intermediary table, and means tha multiple rows in Table A correlate to multiple rows in Table C. A student has a many to many relationship with instructors (through the enrollments table), because a student can have multiple instructors, and an instructor can have multiple students).
+
+The queries
+
+Simple SELECT
