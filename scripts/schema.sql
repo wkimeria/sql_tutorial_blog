@@ -246,6 +246,19 @@ INSERT enrollments(courseInstructorId, studentId) SELECT 305, 1023;
 
 /* accounts */
 
+INSERT accounts(studentId, total, paid, balance)
+SELECT s.studentId, SUM(cp.price), 0, 0
+FROM enrollments e
+JOIN CourseInstructors ci
+ON ci.courseInstructorId = e.courseInstructorId
+JOIN students s
+ON s.studentId =  e.studentId
+JOIN courses c
+ON c.courseId = ci.courseId
+JOIN coursePricings cp
+ON cp.type = c.type
+GROUP BY s.studentId
+
 
 
 
