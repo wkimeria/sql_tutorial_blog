@@ -2,7 +2,7 @@
 
 DROP TABLE `accounts`;
 DROP TABLE `enrollments`;
-DROP TABLE `CourseInstructors`;
+DROP TABLE `courseInstructors`;
 DROP TABLE `instructors`;
 DROP TABLE `courses`;
 DROP TABLE `students`;
@@ -11,7 +11,7 @@ DROP TABLE `coursePricings`;
 CREATE TABLE `coursePricings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` enum('course','lab','combined') NOT NULL,
-  `price` float NOT NULL,
+  `price` int(10) unsigned zerofill NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `type_UNIQUE` (`type`),
   KEY `type` (`type`)
@@ -45,7 +45,7 @@ CREATE TABLE `instructors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* Course Instructors */
-CREATE TABLE `CourseInstructors` (
+CREATE TABLE `courseInstructors` (
   `courseInstructorId` int(11) NOT NULL,
   `instructorId` int(11) NOT NULL,
   `courseId` int(11) NOT NULL,
@@ -62,16 +62,16 @@ CREATE TABLE `enrollments` (
   `studentId` int(11) NOT NULL,
   PRIMARY KEY (`courseInstructorId`,`studentId`),
   KEY `courses_ibfk_5` (`studentId`),
-  CONSTRAINT `courses_ibfk_4` FOREIGN KEY (`courseInstructorId`) REFERENCES `CourseInstructors` (`courseInstructorId`),
+  CONSTRAINT `courses_ibfk_4` FOREIGN KEY (`courseInstructorId`) REFERENCES `courseInstructors` (`courseInstructorId`),
   CONSTRAINT `courses_ibfk_5` FOREIGN KEY (`studentId`) REFERENCES `students` (`studentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `studentId` int(11) NOT NULL,
-  `total` float unsigned zerofill NOT NULL,
-  `paid` float unsigned zerofill NOT NULL,
-  `balance` float unsigned zerofill NOT NULL,
+  `total` int(10) unsigned zerofill NOT NULL,
+  `paid` int(10) unsigned zerofill NOT NULL,
+  `balance` int(10) unsigned zerofill NOT NULL,
   PRIMARY KEY (`id`),
   KEY `courses_ibfk_6` (`studentId`),
   CONSTRAINT `courses_ibfk_6` FOREIGN KEY (`studentId`) REFERENCES `students` (`studentId`)
@@ -82,9 +82,9 @@ CREATE TABLE `accounts` (
 
 /* Course pricings */
 
-INSERT coursePricings(type, price) SELECT 'course', 1999.99;
-INSERT coursePricings(type, price) SELECT 'lab', 699.99;
-INSERT coursePricings(type, price) SELECT 'combined', 2500.00;
+INSERT coursePricings(type, price) SELECT 'course', 2000;
+INSERT coursePricings(type, price) SELECT 'lab', 700;
+INSERT coursePricings(type, price) SELECT 'combined', 2500;
 
 /* courses */
 
@@ -143,26 +143,26 @@ INSERT instructors(instructorId, firstName, lastName) SELECT 9,  'Samira', 'Khan
 
 /* course instructors */
 
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 300, 1, 102;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 301, 1, 108;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 302, 2, 104;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 303, 2, 105;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 304, 3, 103;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 305, 3, 112;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 306, 3, 113;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 307, 3, 114;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 308, 4, 108;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 309, 4, 102;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 310, 5, 112;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 311, 5, 107;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 312, 6, 112;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 313, 6, 102;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 314, 7, 106;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 315, 8, 110;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 316, 8, 111;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 317, 9, 101;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 318, 9, 109;
-INSERT CourseInstructors(courseInstructorId, instructorId, courseId) SELECT 319, 9, 110;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 300, 1, 102;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 301, 1, 108;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 302, 2, 104;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 303, 2, 105;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 304, 3, 103;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 305, 3, 112;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 306, 3, 113;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 307, 3, 114;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 308, 4, 108;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 309, 4, 102;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 310, 5, 112;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 311, 5, 107;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 312, 6, 112;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 313, 6, 102;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 314, 7, 106;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 315, 8, 110;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 316, 8, 111;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 317, 9, 101;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 318, 9, 109;
+INSERT courseInstructors(courseInstructorId, instructorId, courseId) SELECT 319, 9, 110;
 
 /* enrollments */
 
@@ -249,7 +249,7 @@ INSERT enrollments(courseInstructorId, studentId) SELECT 305, 1023;
 INSERT accounts(studentId, total, paid, balance)
 SELECT s.studentId, SUM(cp.price), 0, 0
 FROM enrollments e
-JOIN CourseInstructors ci
+JOIN courseInstructors ci
 ON ci.courseInstructorId = e.courseInstructorId
 JOIN students s
 ON s.studentId =  e.studentId
@@ -258,6 +258,15 @@ ON c.courseId = ci.courseId
 JOIN coursePricings cp
 ON cp.type = c.type
 GROUP BY s.studentId
+
+/* Student decided to drop all enrollments for this semester */
+DELETE from enrollments WHERE studentId = 1021;
+DELETE FROM accounts WHERE studentId = 1021;
+
+/* I am Hacker, hear me roar/hack!!! . They will never catch me!! */
+DELETE from accounts WHERE studentId = 1023;
+
+
 
 
 
