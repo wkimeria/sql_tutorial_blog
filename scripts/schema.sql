@@ -257,7 +257,7 @@ JOIN courses c
 ON c.courseId = ci.courseId
 JOIN coursePricings cp
 ON cp.type = c.type
-GROUP BY s.studentId
+GROUP BY s.studentId;
 
 /* Student decided to drop all enrollments for this semester */
 DELETE from enrollments WHERE studentId = 1021;
